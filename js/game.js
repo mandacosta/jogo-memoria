@@ -1,4 +1,6 @@
 const grid = document.querySelector(".grid")
+const jogador = document.querySelector(".player")
+const timer = document.querySelector(".timer")
 
 const listaPersonagens = ["beth", "jerry", "jessica", "morty", "pessoa-passaro", "pickle-rick", "rick", "summer", "meeseeks", "scroopy"]
 
@@ -16,8 +18,9 @@ function checkFimJogo(){
     const cartasInativadas = document.querySelectorAll(".card-inativada")
 
     if(cartasInativadas.length == 20){
+        clearInterval(this.loop)
         setTimeout(()=>{
-           alert("Parabéns! Fim de jogo !") 
+           alert(`Parabéns! Fim de jogo ! Seu tempo foi de ${timer.innerHTML} segundos`) 
         },600)
     }
 } 
@@ -70,30 +73,6 @@ function checkCards(){
     } 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function creatCard (personagem){
 
     const card = creatElement("div", "card")
@@ -122,6 +101,26 @@ function listarCartas (lista){
     })
 }
 
-listarCartas(listaPersonagens)
+
+function timerStart (){
+
+    this.loop = setInterval(()=> {
+        const tempoAtual = Number(timer.innerHTML)
+        timer.innerHTML = tempoAtual + 1
+    }, 1000)
+
+}
+
+window.onload = () =>{
+
+    jogador.innerHTML = localStorage.getItem("player")
+
+    listarCartas(listaPersonagens)
+
+    timerStart()
+
+
+}
+
 
 
